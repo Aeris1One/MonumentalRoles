@@ -166,37 +166,37 @@ bot = PersistentViewBot()
 
 
 @bot.command()
-@commands.is_owner()
+@commands.has_permissions(manage_messages=True)
 async def english(ctx: commands.Context):
     """Starts a persistent view."""
     # In order for a persistent view to be listened to, it needs to be sent to an actual message.
     # Call this method once just to store it somewhere.
     # In a more complicated program you might fetch the message_id from a database for use later.
     # However this is outside of the scope of this simple example.
-    if ctx.author.id == 284017092246765589:
-        await ctx.send(file=discord.File("english.png"), view=EnglishRolesView())
+    await ctx.send(file=discord.File("english.png"), view=EnglishRolesView())
 
 
 @bot.command()
+@commands.has_permissions(manage_messages=True)
 async def prosit(ctx: commands.Context):
     """Starts a persistent view."""
     # In order for a persistent view to be listened to, it needs to be sent to an actual message.
     # Call this method once just to store it somewhere.
     # In a more complicated program you might fetch the message_id from a database for use later.
     # However this is outside of the scope of this simple example.
-    if ctx.author.id == 284017092246765589:
-        await ctx.send(file=discord.File("prosit.png"), view=PrositGroupView())
+    await ctx.send(file=discord.File("prosit.png"), view=PrositGroupView())
 
 
 @bot.command()
+@commands.has_permissions(manage_messages=True)
 async def year(ctx: commands.Context):
     """Starts a persistent view."""
     # In order for a persistent view to be listened to, it needs to be sent to an actual message.
     # Call this method once just to store it somewhere.
     # In a more complicated program you might fetch the message_id from a database for use later.
     # However this is outside of the scope of this simple example.
-    if ctx.author.id == 284017092246765589:
-        await ctx.send(file=discord.File("year.png"), view=YearView())
+    # si l'auteur a les permissions d'administrateur
+    await ctx.send(file=discord.File("year.png"), view=YearView())
 
 
 bot.run(os.getenv("TOKEN"))
