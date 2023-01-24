@@ -199,5 +199,4 @@ async def year(ctx: commands.Context):
         await ctx.send(file=discord.File("year.png"), view=YearView())
 
 
-#bot.run(os.getenv("TOKEN"))
-bot.run("MTA2NzU1MTY5ODc5NDU3ODAwMA.GH9KFY.IMu_o8TIk2G4X1fhqjCCV-nQHIIYAq3PyjAKi8")
+bot.run(os.getenv("TOKEN"))
