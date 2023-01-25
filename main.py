@@ -48,33 +48,33 @@ class EnglishRolesView(discord.ui.View):
 
     @discord.ui.button(label='1', style=discord.ButtonStyle.green, custom_id='english:1')
     async def one(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await addEnglishRoles(1, interaction)
         logging.info("Anglais - Rôle Groupe 1 demandé par " + interaction.user.name)
+        await addEnglishRoles(1, interaction)
 
     @discord.ui.button(label='2', style=discord.ButtonStyle.grey, custom_id='english:2')
     async def two(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await addEnglishRoles(2, interaction)
         logging.info("Anglais - Rôle Groupe 2 demandé par " + interaction.user.name)
+        await addEnglishRoles(2, interaction)
 
     @discord.ui.button(label='3', style=discord.ButtonStyle.blurple, custom_id='english:3')
     async def three(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await addEnglishRoles(3, interaction)
         logging.info("Anglais - Rôle Groupe 3 demandé par " + interaction.user.name)
+        await addEnglishRoles(3, interaction)
 
     @discord.ui.button(label='4', style=discord.ButtonStyle.red, custom_id='english:4')
     async def four(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await addEnglishRoles(4, interaction)
         logging.info("Anglais - Rôle Groupe 4 demandé par " + interaction.user.name)
+        await addEnglishRoles(4, interaction)
 
     @discord.ui.button(label='5', style=discord.ButtonStyle.green, custom_id='english:5')
     async def five(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await addEnglishRoles(5, interaction)
         logging.info("Anglais - Rôle Groupe 5 demandé par " + interaction.user.name)
+        await addEnglishRoles(5, interaction)
 
     @discord.ui.button(label='6', style=discord.ButtonStyle.blurple, custom_id='english:6')
     async def six(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await addEnglishRoles(6, interaction)
         logging.info("Anglais - Rôle Groupe 6 demandé par " + interaction.user.name)
+        await addEnglishRoles(6, interaction)
 
 
 async def addEnglishRoles(role_number: int, interaction: discord.Interaction):
@@ -84,16 +84,18 @@ async def addEnglishRoles(role_number: int, interaction: discord.Interaction):
         for role in english_roles_ids:
             if discord.utils.get(interaction.guild.roles, id=role) in interaction.user.roles:
                 logging.debug("Anglais - Rôle " + discord.utils.get(interaction.guild.roles, id=role).name +
-                              "retiré à " + interaction.user.name)
+                              " retiré à " + interaction.user.name)
                 await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=role))
             else:
                 logging.debug("Anglais - Rôle " + discord.utils.get(interaction.guild.roles, id=role).name +
-                              "n'a pas été retiré " + interaction.user.name)
-        await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=english_roles_ids[role_number-1]),
-                                         reason="English")
+                              " n'a pas été retiré " + interaction.user.name)
+
+        await interaction.user.add_roles(
+            discord.utils.get(interaction.guild.roles, id=english_roles_ids[role_number - 1]),
+            reason="English")
         logging.info("Anglais - Rôle " +
-                     discord.utils.get(interaction.guild.roles, id=english_roles_ids[role_number-1]).name +
-                     "ajouté à " + interaction.user.name)
+                     discord.utils.get(interaction.guild.roles, id=english_roles_ids[role_number - 1]).name +
+                     " ajouté à " + interaction.user.name)
     else:
         await interaction.response.send_message("Tu as déjà ce rôle !", ephemeral=True)
 
@@ -121,7 +123,7 @@ class PrositGroupView(discord.ui.View):
 
     @discord.ui.select(placeholder="Choisis ton groupe prosit !", options=options, custom_id='prosit_group_select')
     async def role_select(self, interaction: discord.Interaction, select: discord.ui.Select):
-        logging.info("Prosit - Groupe " + select.values[0] + " demandé par " + interaction.user.name)
+        logging.info("Prosit - Rôle Équipe " + select.values[0] + " demandé par " + interaction.user.name)
         await addPrositRoles(int(select.values[0]), interaction)
 
 
@@ -132,40 +134,40 @@ async def addPrositRoles(role_number: int, interaction: discord.Interaction):
         for role in prosit_roles_ids:
             if discord.utils.get(interaction.guild.roles, id=role) in interaction.user.roles:
                 logging.debug("Prosit - Rôle " + discord.utils.get(interaction.guild.roles, id=role).name +
-                              "retiré à " + interaction.user.name)
+                              " retiré à " + interaction.user.name)
                 await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=role))
             else:
                 logging.debug("Prosit - Rôle " + discord.utils.get(interaction.guild.roles, id=role).name +
-                              "n'a pas été retiré " + interaction.user.name)
+                              " n'a pas été retiré " + interaction.user.name)
 
         if discord.utils.get(interaction.guild.roles, id=groupe1id) in interaction.user.roles:
             await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=groupe1id))
             logging.debug("Prosit - Rôle " + discord.utils.get(interaction.guild.roles, id=groupe1id).name +
-                          "retiré à " + interaction.user.name)
+                          " retiré à " + interaction.user.name)
         elif discord.utils.get(interaction.guild.roles, id=groupe2id) in interaction.user.roles:
             logging.debug("Prosit - Rôle " + discord.utils.get(interaction.guild.roles, id=groupe2id).name +
-                          "retiré à " + interaction.user.name)
+                          " retiré à " + interaction.user.name)
             await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=groupe2id))
 
         if role_number in groupe1:
             logging.info("Prosit - Rôle " +
                          discord.utils.get(interaction.guild.roles, id=groupe1id).name +
-                         "ajouté à " + interaction.user.name)
+                         " ajouté à " + interaction.user.name)
             await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=groupe1id),
                                              reason="Prosit")
         elif role_number in groupe2:
             logging.info("Prosit - Rôle " +
                          discord.utils.get(interaction.guild.roles, id=groupe2id).name +
-                         "ajouté à " + interaction.user.name)
+                         " ajouté à " + interaction.user.name)
             await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=groupe2id),
                                              reason="Prosit")
 
         logging.info("Prosit - Rôle " +
-                         discord.utils.get(interaction.guild.roles, id=prosit_roles_ids[role_number-1]).name +
-                         "ajouté à " + interaction.user.name)
+                     discord.utils.get(interaction.guild.roles, id=prosit_roles_ids[role_number - 1]).name +
+                     " ajouté à " + interaction.user.name)
         await interaction.user.add_roles(
-                discord.utils.get(interaction.guild.roles, id=prosit_roles_ids[role_number-1]),
-                reason="Prosit")
+            discord.utils.get(interaction.guild.roles, id=prosit_roles_ids[role_number - 1]),
+            reason="Prosit")
     else:
         await interaction.response.send_message("Tu as déjà ce rôle !", ephemeral=True)
 
@@ -176,9 +178,10 @@ class YearView(discord.ui.View):
 
     @discord.ui.button(label='A1', style=discord.ButtonStyle.green, custom_id='year:1')
     async def a1(self, interaction: discord.Interaction, button: discord.ui.Button):
+        logging.info("Année - Rôle A1 demandé par " + interaction.user.name)
         if discord.utils.get(interaction.guild.roles, id=a2id) in interaction.user.roles:
             logging.debug("Année - Rôle " + discord.utils.get(interaction.guild.roles, id=a2id).name +
-                          "retiré à " + interaction.user.name)
+                          " retiré à " + interaction.user.name)
             await interaction.response.send_message("Top ! C'est noté, choisis ton groupe d'anglais et ton groupe "
                                                     "prosit !", ephemeral=True)
             await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=a2id),
@@ -188,9 +191,12 @@ class YearView(discord.ui.View):
                                                     "prosit !", ephemeral=True)
         await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=a1id),
                                          reason="A1")
+        logging.info("Année - Rôle " + discord.utils.get(interaction.guild.roles, id=a1id).name +
+                     " ajouté à " + interaction.user.name)
 
     @discord.ui.button(label='A2', style=discord.ButtonStyle.red, custom_id='year:2')
     async def a2(self, interaction: discord.Interaction, button: discord.ui.Button):
+        logging.info("Année - Rôle A2 demandé par " + interaction.user.name)
         if discord.utils.get(interaction.guild.roles, id=a2id) not in interaction.user.roles:
             await interaction.response.send_message("Top ! C'est noté !\n*Patientes un instant le temps que Discord "
                                                     "t'ajoutes le role*", ephemeral=True)
@@ -198,29 +204,28 @@ class YearView(discord.ui.View):
             for role in english_roles_ids:
                 if discord.utils.get(interaction.guild.roles, id=role) in interaction.user.roles:
                     logging.debug("Année - Rôle " + discord.utils.get(interaction.guild.roles, id=role).name +
-                                  "retiré à " + interaction.user.name)
+                                  " retiré à " + interaction.user.name)
                     await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=role))
             for role in prosit_roles_ids:
                 if discord.utils.get(interaction.guild.roles, id=role) in interaction.user.roles:
                     logging.debug("Année - Rôle " + discord.utils.get(interaction.guild.roles, id=role).name +
-                                  "retiré à " + interaction.user.name)
+                                  " retiré à " + interaction.user.name)
                     await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=role))
 
             if discord.utils.get(interaction.guild.roles, id=groupe1id) in interaction.user.roles:
                 logging.debug("Année - Rôle " + discord.utils.get(interaction.guild.roles, id=groupe1id).name +
-                              "retiré à " + interaction.user.name)
+                              " retiré à " + interaction.user.name)
                 await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=groupe1id))
 
             if discord.utils.get(interaction.guild.roles, id=groupe2id) in interaction.user.roles:
                 logging.debug("Année - Rôle " + discord.utils.get(interaction.guild.roles, id=groupe2id).name +
-                              "retiré à " + interaction.user.name)
+                              " retiré à " + interaction.user.name)
                 await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=groupe2id))
-
-            logging.info("Année - Rôle " +
-                         discord.utils.get(interaction.guild.roles, id=a2id).name +
-                         "ajouté à " + interaction.user.name)
             await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=a2id),
                                              reason="A2")
+            logging.info("Année - Rôle " +
+                         discord.utils.get(interaction.guild.roles, id=a2id).name +
+                         " ajouté à " + interaction.user.name)
         else:
             await interaction.response.send_message("C'est tout bon, tu as déjà le rôle !", ephemeral=True)
 
@@ -243,7 +248,7 @@ class PersistentViewBot(commands.Bot):
         self.add_view(YearView())
 
     async def on_ready(self):
-        logging.info(f'Logged in as {self.user} (ID: {self.user.id})')
+        logging.info(f'Connecté en tant que {self.user} (ID: {self.user.id})')
 
 
 bot = PersistentViewBot()
@@ -258,6 +263,7 @@ async def english(ctx: commands.Context):
     # In a more complicated program you might fetch the message_id from a database for use later.
     # However this is outside of the scope of this simple example.
     await ctx.send(file=discord.File("english.png"), view=EnglishRolesView())
+    await ctx.message.delete()
 
 
 @bot.command()
@@ -269,6 +275,7 @@ async def prosit(ctx: commands.Context):
     # In a more complicated program you might fetch the message_id from a database for use later.
     # However this is outside of the scope of this simple example.
     await ctx.send(file=discord.File("prosit.png"), view=PrositGroupView())
+    await ctx.message.delete()
 
 
 @bot.command()
@@ -281,6 +288,7 @@ async def year(ctx: commands.Context):
     # However this is outside of the scope of this simple example.
     # si l'auteur a les permissions d'administrateur
     await ctx.send(file=discord.File("year.png"), view=YearView())
+    await ctx.message.delete()
 
 
 bot.run(os.getenv("TOKEN"), log_handler=None)
