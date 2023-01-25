@@ -38,7 +38,7 @@ groupe2id = 1067546168067903519
 a1id = 1067743463174582343
 a2id = 1067545025010999397
 
-suggestion_channel_id = 1067755354328412190
+suggestion_channel_id = 0000000000000000000
 
 # Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
