@@ -38,6 +38,8 @@ groupe2id = 1067546168067903519
 a1id = 1067743463174582343
 a2id = 1067545025010999397
 
+suggestion_channel_id = 1067755354328412190
+
 # Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -230,7 +232,7 @@ class YearView(discord.ui.View):
             await interaction.response.send_message("C'est tout bon, tu as déjà le rôle !", ephemeral=True)
 
 
-class PersistentViewBot(commands.Bot):
+class MonumentalBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
         intents.message_content = True
@@ -247,11 +249,18 @@ class PersistentViewBot(commands.Bot):
         self.add_view(PrositGroupView())
         self.add_view(YearView())
 
+    async def on_message(self, message: discord.Message) -> None:
+        if message.channel.id == suggestion_channel_id:
+            await message.add_reaction("✅")
+            await message.add_reaction("❌")
+            await message.create_thread(name="Suggestion de " + message.author.name, auto_archive_duration=60)
+        await self.process_commands(message)
+
     async def on_ready(self):
         logging.info(f'Connecté en tant que {self.user} (ID: {self.user.id})')
 
 
-bot = PersistentViewBot()
+bot = MonumentalBot()
 
 
 @bot.command()
