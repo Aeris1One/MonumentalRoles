@@ -35,6 +35,7 @@ groupe2 = [9, 10, 11, 12, 13, 14]
 groupe1id = 1067546097045745835
 groupe2id = 1067546168067903519
 
+a1id = 1067743463174582343
 a2id = 1067545025010999397
 
 # Logging
@@ -185,6 +186,8 @@ class YearView(discord.ui.View):
         else:
             await interaction.response.send_message("Top ! C'est noté, choisis ton groupe d'anglais et ton groupe "
                                                     "prosit !", ephemeral=True)
+        await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=a1id),
+                                         reason="A1")
 
     @discord.ui.button(label='A2', style=discord.ButtonStyle.red, custom_id='year:2')
     async def a2(self, interaction: discord.Interaction, button: discord.ui.Button):
