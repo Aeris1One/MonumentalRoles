@@ -38,7 +38,7 @@ groupe2id = 1067546168067903519
 a2id = 1067545025010999397
 
 # Logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
 class EnglishRolesView(discord.ui.View):
@@ -280,5 +280,4 @@ async def year(ctx: commands.Context):
     await ctx.send(file=discord.File("year.png"), view=YearView())
 
 
-# bot.run(os.getenv("TOKEN"), log_handler=None)
-bot.run("MTA2NzU1MTY5ODc5NDU3ODAwMA.GJApAa.J33UhF_9Tgua7pzrb4qqWwKAqbMOoEfQIgApeo", log_handler=None)
+bot.run(os.getenv("TOKEN"), log_handler=None)
