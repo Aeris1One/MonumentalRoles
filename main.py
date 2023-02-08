@@ -30,10 +30,12 @@ prosit_roles_ids = [
     1067546817467777144  # 14
 ]
 
-groupe1 = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-groupe2 = [9, 10, 11, 12, 13, 14]
+groupe1 = [1, 2, 3, 4]
+groupe2 = [5, 6, 7, 8]
+groupe3 = [9, 10, 11, 12, 13, 14]
 groupe1id = 1067546097045745835
 groupe2id = 1067546168067903519
+groupe3id = 1072828558352842814
 
 a1id = 1067743463174582343
 a2id = 1067545025010999397
@@ -43,6 +45,8 @@ suggestion_channel_id = 0000000000000000000
 # Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+#logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logging.getLogger('discord').setLevel(logging.INFO)
 
 class EnglishRolesView(discord.ui.View):
     def __init__(self):
@@ -150,6 +154,10 @@ async def addPrositRoles(role_number: int, interaction: discord.Interaction):
             logging.debug("Prosit - Rôle " + discord.utils.get(interaction.guild.roles, id=groupe2id).name +
                           " retiré à " + interaction.user.name)
             await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=groupe2id))
+        elif discord.utils.get(interaction.guild.roles, id=groupe3id) in interaction.user.roles:
+            logging.debug("Prosit - Rôle " + discord.utils.get(interaction.guild.roles, id=groupe3id).name +
+                          " retiré à " + interaction.user.name)
+            await interaction.user.remove_roles(discord.utils.get(interaction.guild.roles, id=groupe3id))
 
         if role_number in groupe1:
             logging.info("Prosit - Rôle " +
@@ -162,6 +170,13 @@ async def addPrositRoles(role_number: int, interaction: discord.Interaction):
                          discord.utils.get(interaction.guild.roles, id=groupe2id).name +
                          " ajouté à " + interaction.user.name)
             await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=groupe2id),
+                                             reason="Prosit")
+
+        elif role_number in groupe3:
+            logging.info("Prosit - Rôle " +
+                         discord.utils.get(interaction.guild.roles, id=groupe3id).name +
+                         " ajouté à " + interaction.user.name)
+            await interaction.user.add_roles(discord.utils.get(interaction.guild.roles, id=groupe3id),
                                              reason="Prosit")
 
         logging.info("Prosit - Rôle " +
@@ -318,5 +333,6 @@ async def resetprositroles(ctx: commands.Context):
                     logging.error("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=role).name +
                                   " non retiré à " + user.name)
     await message.edit(content="Reset des rôles prosit terminé !")
+
 
 bot.run(os.getenv("TOKEN"), log_handler=None)
