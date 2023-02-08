@@ -332,6 +332,18 @@ async def resetprositroles(ctx: commands.Context):
                 except:
                     logging.error("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=role).name +
                                   " non retiré à " + user.name)
+            if discord.utils.get(ctx.guild.roles, id=groupe1id) in user.roles:
+                logging.debug("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=groupe1id).name +
+                              " retiré à " + user.name)
+                await user.remove_roles(discord.utils.get(ctx.guild.roles, id=groupe1id))
+            if discord.utils.get(ctx.guild.roles, id=groupe2id) in user.roles:
+                logging.debug("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=groupe2id).name +
+                              " retiré à " + user.name)
+                await user.remove_roles(discord.utils.get(ctx.guild.roles, id=groupe2id))
+            if discord.utils.get(ctx.guild.roles, id=groupe3id) in user.roles:
+                logging.debug("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=groupe3id).name +
+                              " retiré à " + user.name)
+                await user.remove_roles(discord.utils.get(ctx.guild.roles, id=groupe3id))
     await message.edit(content="Reset des rôles prosit terminé !")
 
 
