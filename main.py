@@ -300,4 +300,19 @@ async def year(ctx: commands.Context):
     await ctx.message.delete()
 
 
+@bot.command()
+@commands.has_permissions(manage_roles=True)
+async def resetprositroles(ctx: commands.Context):
+    for user in ctx.guild.members:
+        for role in prosit_roles_ids:
+            if discord.utils.get(ctx.guild.roles, id=role) in user.roles:
+                try:
+                    await user.remove_roles(discord.utils.get(ctx.guild.roles, id=role))
+                    logging.info("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=role).name +
+                                 " retiré à " + user.name)
+                except:
+                    logging.error("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=role).name +
+                                  " non retiré à " + user.name)
+
+
 bot.run(os.getenv("TOKEN"), log_handler=None)
