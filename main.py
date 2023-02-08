@@ -236,6 +236,7 @@ class MonumentalBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
         intents.message_content = True
+        intents.members = True
 
         super().__init__(command_prefix=commands.when_mentioned_or('roles!'), intents=intents)
 
@@ -303,7 +304,10 @@ async def year(ctx: commands.Context):
 @bot.command()
 @commands.has_permissions(manage_roles=True)
 async def resetprositroles(ctx: commands.Context):
+    logging.info("Année - Reset des rôles prosit")
+    message = await ctx.send("Reset des rôles prosit en cours...")
     for user in ctx.guild.members:
+        logging.debug("Année - Reset des rôles prosit pour " + user.name)
         for role in prosit_roles_ids:
             if discord.utils.get(ctx.guild.roles, id=role) in user.roles:
                 try:
@@ -313,6 +317,6 @@ async def resetprositroles(ctx: commands.Context):
                 except:
                     logging.error("Année - Rôle " + discord.utils.get(ctx.guild.roles, id=role).name +
                                   " non retiré à " + user.name)
-
+    await message.edit(content="Reset des rôles prosit terminé !")
 
 bot.run(os.getenv("TOKEN"), log_handler=None)
