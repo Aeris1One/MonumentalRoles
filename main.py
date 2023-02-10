@@ -135,7 +135,7 @@ class PrositGroupView(discord.ui.View):
 
 async def addPrositRoles(role_number: int, interaction: discord.Interaction):
     if discord.utils.get(interaction.guild.roles, id=prosit_roles_ids[role_number - 1]) not in interaction.user.roles:
-        await interaction.response.send_message("C'est noté !\n*Patientes un instant que les roles soient ajoutés par "
+        await interaction.response.send_message("C'est noté !\n*Patiente un instant que les roles soient ajoutés par "
                                                 "Discord*", ephemeral=True)
         for role in prosit_roles_ids:
             if discord.utils.get(interaction.guild.roles, id=role) in interaction.user.roles:
@@ -215,7 +215,7 @@ class YearView(discord.ui.View):
     async def a2(self, interaction: discord.Interaction, button: discord.ui.Button):
         logging.info("Année - Rôle A2 demandé par " + interaction.user.name)
         if discord.utils.get(interaction.guild.roles, id=a2id) not in interaction.user.roles:
-            await interaction.response.send_message("Top ! C'est noté !\n*Patientes un instant le temps que Discord "
+            await interaction.response.send_message("Top ! C'est noté !\n*Patiente un instant le temps que Discord "
                                                     "t'ajoutes le role*", ephemeral=True)
 
             for role in english_roles_ids:
