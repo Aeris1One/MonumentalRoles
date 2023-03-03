@@ -28,7 +28,7 @@ class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
         embed.set_author(name="Eric Locator",
                          icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
 
-        for message in await interaction.channel.history(limit=20).flatten():
+        async for message in interaction.channel.history():
             await message.delete()
         await interaction.response.send_message(embed=embed, view=MessageView())
 
@@ -82,7 +82,7 @@ class MessageView(discord.ui.View):
                          icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
 
         # clear channel and send message
-        for message in await interaction.channel.history(limit=20).flatten():
+        async for message in interaction.channel.history():
             await message.delete()
         await interaction.response.send_message(embed=embed, view=PartialMessageView())
 
@@ -135,7 +135,7 @@ class EricLocator(commands.Cog):
                          icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
 
         # clear channel and send message
-        for message in await ctx.channel.history(limit=200).flatten():
+        async for message in ctx.channel.history():
             await message.delete()
         await ctx.send(embed=embed, view=PartialMessageView())
 
