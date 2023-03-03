@@ -12,6 +12,7 @@ random_not_found_messages = [
     "Personne sait où est Eric ?"
 ]
 
+
 class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
     salle = discord.ui.TextInput(
         label='Salle',
@@ -24,10 +25,12 @@ class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
             title="Eric est dans la salle " + self.salle.value + " !",
             color=0x00FF00
         )
-        embed.set_author(name="Eric Locator", icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
+        embed.set_author(name="Eric Locator",
+                         icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
 
+        for message in await interaction.channel.history(limit=20).flatten():
+            await message.delete()
         await interaction.response.send_message(embed=embed, view=MessageView())
-        await interaction.message.delete()
 
 
 class PartialMessageView(discord.ui.View):
@@ -46,6 +49,7 @@ class PartialMessageView(discord.ui.View):
     async def in_my_room(self, interaction: discord.Interaction, button: discord.ui.Button):
         # Show modal
         await interaction.response.send_modal(ModalView())
+
 
 class MessageView(discord.ui.View):
     """
@@ -77,8 +81,10 @@ class MessageView(discord.ui.View):
         embed.set_author(name="Eric Locator",
                          icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
 
+        # clear channel and send message
+        for message in await interaction.channel.history(limit=20).flatten():
+            await message.delete()
         await interaction.response.send_message(embed=embed, view=PartialMessageView())
-        await interaction.message.delete()
 
 
 class EricLocator(commands.Cog):
@@ -109,10 +115,9 @@ class EricLocator(commands.Cog):
             )
             await ctx.send(embed=embed, ephemeral=True)
 
-
     @eric.command(
         name='summon',
-        description="Envoyer le premier message pour trouver Eric"
+        description=r"Envoyer le premier message pour trouver Eric (/!\ efface tous les messages du salon)"
     )
     @commands.has_permissions(manage_messages=True)
     async def summon(self, ctx):
@@ -126,8 +131,12 @@ class EricLocator(commands.Cog):
             description="Trouve Eric et tu gagnes un cookie",
             color=0x00FF00
         )
-        embed.set_author(name="Eric Locator", icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
+        embed.set_author(name="Eric Locator",
+                         icon_url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Fimages.seroundtable.com%2Fgoogle-maps-icon-1580992464.png")
 
+        # clear channel and send message
+        for message in await ctx.channel.history(limit=200).flatten():
+            await message.delete()
         await ctx.send(embed=embed, view=PartialMessageView())
 
 
