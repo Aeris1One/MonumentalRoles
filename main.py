@@ -35,14 +35,17 @@ class MonumentalBot(commands.Bot):
         super().__init__(command_prefix=commands.when_mentioned_or('roles!'), intents=intents)
 
     async def on_ready(self):
+        logger.info('Chargement des extensions...')
+        await load_cogs()
         logger.info(f'Connecté en tant que {self.user} (ID: {self.user.id})')
         logger.info("Synchronisation des commandes...")
         await bot.tree.sync()
         logger.info("Synchronisation terminée.")
         logger.info(f'------')
-        await self.change_presence(activity=discord.Game(name="Ok ça marche"))
+        await self.change_presence(status=discord.Status.online)
+
 
 bot = MonumentalBot()
+bot.status = discord.Status.do_not_disturb
 
-asyncio.run(load_cogs())
 bot.run(os.getenv("TOKEN"), log_handler=None)
