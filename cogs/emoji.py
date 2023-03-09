@@ -34,5 +34,5 @@ class Emoji(commands.Cog):
                                                         image=open(f"/emojis/{emoji_name}.jpg", "rb").read())
 
 
-def setup(bot):
-    bot.add_cog(Emoji(bot))
+async def setup(bot):
+    await bot.add_cog(Emoji(bot))
