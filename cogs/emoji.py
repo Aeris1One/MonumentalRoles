@@ -22,10 +22,9 @@ class Emoji(commands.Cog):
                     f"emojis/{entry.target.name}.jpg", "rb").read())
 
     # on load, add all emojis in /emojis to all guilds
-    @commands.Cog.listener()
-    async def on_ready(self):
+    async def cog_load(self) -> None:
         for guild in self.bot.guilds:
-            for file in os.listdir(f"/emojis"):
+            for file in os.listdir("/emojis"):
                 if file.endswith(".jpg"):
                     emoji_name = file[:-4]
                     if not discord.utils.get(guild.emojis, name=emoji_name):
