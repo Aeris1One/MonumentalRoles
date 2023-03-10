@@ -13,11 +13,12 @@ random_not_found_messages = [
 ]
 
 
-class ModalView(discord.ui.Modal, title='Eric Locator 2000', max_length=100):
+class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
     salle = discord.ui.TextInput(
         label='Salle',
         placeholder='N102 / N104A / N104B',
-        required=True
+        required=True,
+        max_length=100
     )
 
     async def on_submit(self, interaction: discord.Interaction, /) -> None:
