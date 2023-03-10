@@ -19,12 +19,14 @@ class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
         placeholder='N102 / N104A / N104B',
         required=True
     )
-    if len(salle) > 400:
-        salle = salle[::399]
 
     async def on_submit(self, interaction: discord.Interaction, /) -> None:
+        if len(self.salle.value) > 100:
+            title = "Eric est dans la salle " + self.salle.value[0:100] + " !"
+        else:
+            title = "Eric est dans la salle " + self.salle.value + " !"
         embed = discord.Embed(
-            title="Eric est dans la salle " + self.salle.value + " !",
+            title=title,
             color=0x00FF00
         )
         embed.set_author(name="Eric Locator",
