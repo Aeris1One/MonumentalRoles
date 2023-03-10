@@ -13,7 +13,7 @@ random_not_found_messages = [
 ]
 
 
-class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
+class ModalView(discord.ui.Modal, title='Eric Locator 2000', max_length=100):
     salle = discord.ui.TextInput(
         label='Salle',
         placeholder='N102 / N104A / N104B',
@@ -22,7 +22,7 @@ class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
 
     async def on_submit(self, interaction: discord.Interaction, /) -> None:
         embed = discord.Embed(
-            title="Eric est dans la salle " + self.salle.value + " !",
+            title= "Eric est dans la salle " + self.salle.value + " !",
             color=0x00FF00
         )
         embed.set_author(name="Eric Locator",
