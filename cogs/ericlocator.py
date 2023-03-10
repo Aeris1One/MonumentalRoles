@@ -31,6 +31,7 @@ class ModalView(discord.ui.Modal, title='Eric Locator 2000'):
 
         async for message in interaction.channel.history():
             await message.delete()
+        logger.info("Eric a été défini comme étant dans la salle '" + self.salle.value + "' par " + str(interaction.user))
         await interaction.response.send_message(embed=embed, view=MessageView())
 
 
@@ -85,6 +86,7 @@ class MessageView(discord.ui.View):
         # clear channel and send message
         async for message in interaction.channel.history():
             await message.delete()
+        logger.info("Eric a été défini comme étant perdu par " + str(interaction.user))
         await interaction.response.send_message(embed=embed, view=PartialMessageView())
 
 
@@ -138,6 +140,7 @@ class EricLocator(commands.Cog):
         # clear channel and send message
         async for message in ctx.channel.history():
             await message.delete()
+        logger.info("Le message pour le Eric Locator a été invoqué par " + str(ctx.author))
         await ctx.send(embed=embed, view=PartialMessageView())
 
 
